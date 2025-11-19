@@ -1,9 +1,4 @@
-//
-//  GameView.swift
-//  dice game
-//
-//  Created by 陳詠平 on 2025/11/9.
-//
+
 
 import SwiftUI
 
@@ -19,7 +14,7 @@ struct GameView: View {
 
     var body: some View {
         ZStack {
-            // A rich gradient background
+            
             LinearGradient(
                 gradient: Gradient(colors: [darkBrown, midBrown]),
                 startPoint: .top,
@@ -28,23 +23,16 @@ struct GameView: View {
             .ignoresSafeArea()
 
             VStack(spacing: 16) {
-                // Player panels and dice view, now vertically compact
+               
                 HStack(alignment: .top, spacing: 12) {
                     PlayerPanel(game: game, player: .left)
                     DiceView(game: game)
                     PlayerPanel(game: game, player: .right)
                 }
 
-                Spacer() // Pushes content to top and bottom
+                Spacer()
 
-                // Game state information
-                TurnInfoView(game: game)
-
-                // Action buttons
-                ControlsView(game: game)
-
-                // Scoreboard
-                ScoreboardView(game: game)
+               
             }
             .padding()
         }

@@ -1,9 +1,4 @@
-//
-//  HomeView.swift
-//  dice game
-//
-//  Created by 陳詠平 on 2025/11/9.
-//
+
 
 import SwiftUI
 
@@ -18,7 +13,7 @@ struct HomeView: View {
     private let lightBrown = Color(red: 0.76, green: 0.60, blue: 0.49)
     private let accentGold = Color(red: 0.9, green: 0.7, blue: 0.3)
     
-    // Custom button style for the mode selector
+   
     private struct ModeButtonStyle: ButtonStyle {
         let isSelected: Bool
         
@@ -63,7 +58,7 @@ struct HomeView: View {
                 .shadow(color: accentGold.opacity(0.8), radius: 10, x: 0, y: 5)
 
 
-                // Game Mode Selection Panel (Revised)
+                
                 VStack(spacing: 16) {
                     Text("選擇模式")
                         .font(.title2.bold())
@@ -93,7 +88,7 @@ struct HomeView: View {
                         .stroke(lightBrown.opacity(0.5), lineWidth: 1)
                 )
 
-                // Start Game Button
+                
                 Button {
                     startGame()
                 } label: {
@@ -125,10 +120,10 @@ struct HomeView: View {
         game.mode = selectedMode
         game.resetGame()
 
-        // Apply naming rules based on mode
+       
         switch selectedMode {
         case .vsCPU:
-            // In vs CPU mode, we don't reset the player's custom name
+            
             break
         case .vsHuman:
             game.playerLeftName = Player.left.defaultName
