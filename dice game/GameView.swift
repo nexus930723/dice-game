@@ -127,6 +127,8 @@ private struct PlayerPanel: View {
             Text("\(total)")
                 .font(.system(size: 48, weight: .bold, design: .rounded))
                 .foregroundStyle(accentGold)
+                .lineLimit(1) // Force the text to stay on a single line
+                .minimumScaleFactor(0.5) // Allow font to shrink if needed
 
             // Current Turn Score
             // This container reserves a consistent height to prevent layout jumps
@@ -136,6 +138,7 @@ private struct PlayerPanel: View {
                         .font(.title3.bold())
                         .foregroundStyle(.white)
                         .transition(.scale.animation(.spring()))
+                        .lineLimit(1)
                 }
             }
             .frame(height: 30)

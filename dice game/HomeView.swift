@@ -17,6 +17,27 @@ struct HomeView: View {
     private let darkBrown = Color(red: 0.2, green: 0.15, blue: 0.1)
     private let lightBrown = Color(red: 0.76, green: 0.60, blue: 0.49)
     private let accentGold = Color(red: 0.9, green: 0.7, blue: 0.3)
+    
+    // Custom button style for the mode selector
+    private struct ModeButtonStyle: ButtonStyle {
+        let isSelected: Bool
+        
+        // Using colors from the view's theme
+        private let darkBrown = Color(red: 0.2, green: 0.15, blue: 0.1)
+        private let accentGold = Color(red: 0.9, green: 0.7, blue: 0.3)
+        
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .font(.headline)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity)
+                .background(isSelected ? accentGold : .clear)
+                .foregroundStyle(isSelected ? darkBrown : .white)
+                .clipShape(Rectangle()) // Use Rectangle for sharp inner edges
+                .opacity(configuration.isPressed ? 0.7 : 1.0)
+        }
+    }
+
 
     var body: some View {
         ZStack {
@@ -42,22 +63,26 @@ struct HomeView: View {
                 .shadow(color: accentGold.opacity(0.8), radius: 10, x: 0, y: 5)
 
 
-                // Game Mode Selection Panel
+                // Game Mode Selection Panel (Revised)
                 VStack(spacing: 16) {
                     Text("選擇模式")
                         .font(.title2.bold())
                         .foregroundStyle(.white)
 
-                    Picker("模式", selection: $selectedMode) {
-                        ForEach(GameMode.allCases) { m in
-                            Text(m.rawValue).tag(m)
+                    HStack(spacing: 2) { // A small gap creates a divider effect
+                        ForEach(GameMode.allCases) { mode in
+                            Button(mode.rawValue) {
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    selectedMode = mode
+                                }
+                            }
+                            .buttonStyle(ModeButtonStyle(isSelected: selectedMode == mode))
                         }
                     }
-                    .pickerStyle(.segmented)
-                    .padding(.horizontal)
-                    .background(darkBrown.opacity(0.8))
-                    .cornerRadius(10)
-                    .tint(.white)
+                    .background(darkBrown)
+                    .clipShape(Capsule())
+                    .overlay(Capsule().stroke(accentGold, lineWidth: 2)) // A prominent gold border
+                    .animation(.default, value: selectedMode)
                 }
                 .padding()
                 .frame(maxWidth: 500)
